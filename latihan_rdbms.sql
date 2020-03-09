@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2020 at 04:15 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
+-- Waktu pembuatan: 09 Mar 2020 pada 08.11
+-- Versi server: 10.1.37-MariaDB
+-- Versi PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barang`
+-- Struktur dari tabel `barang`
 --
 
 CREATE TABLE `barang` (
@@ -36,7 +36,7 @@ CREATE TABLE `barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `barang`
+-- Dumping data untuk tabel `barang`
 --
 
 INSERT INTO `barang` (`id_barang`, `nama_barang`, `harga`, `jml_stock`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `harga`, `jml_stock`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Struktur dari tabel `customer`
 --
 
 CREATE TABLE `customer` (
@@ -61,7 +61,7 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `customer`
+-- Dumping data untuk tabel `customer`
 --
 
 INSERT INTO `customer` (`id_customer`, `nama`, `alamat`, `no_telp`, `no_kartu`) VALUES
@@ -72,7 +72,26 @@ INSERT INTO `customer` (`id_customer`, `nama`, `alamat`, `no_telp`, `no_kartu`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kartu_member`
+-- Struktur dari tabel `daftar`
+--
+
+CREATE TABLE `daftar` (
+  `id_daftar` int(11) NOT NULL,
+  `email` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `daftar`
+--
+
+INSERT INTO `daftar` (`id_daftar`, `email`) VALUES
+(1, 'email1@gmail.com'),
+(2, 'email2@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kartu_member`
 --
 
 CREATE TABLE `kartu_member` (
@@ -83,7 +102,7 @@ CREATE TABLE `kartu_member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kartu_member`
+-- Dumping data untuk tabel `kartu_member`
 --
 
 INSERT INTO `kartu_member` (`no_kartu`, `masa_berlaku`, `jenis_member`, `diskon`) VALUES
@@ -94,7 +113,31 @@ INSERT INTO `kartu_member` (`no_kartu`, `masa_berlaku`, `jenis_member`, `diskon`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `membeli`
+-- Struktur dari tabel `log_status_daftar`
+--
+
+CREATE TABLE `log_status_daftar` (
+  `id_log` int(11) NOT NULL,
+  `id_daftar` int(11) NOT NULL,
+  `id_status` int(11) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `log_status_daftar`
+--
+
+INSERT INTO `log_status_daftar` (`id_log`, `id_daftar`, `id_status`, `tanggal`) VALUES
+(1, 1, 1, '2020-03-07 03:00:00'),
+(2, 1, 2, '2020-03-07 04:00:00'),
+(3, 2, 1, '2020-03-07 03:00:00'),
+(4, 2, 2, '2020-03-07 04:00:00'),
+(5, 2, 3, '2020-03-07 05:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `membeli`
 --
 
 CREATE TABLE `membeli` (
@@ -106,7 +149,7 @@ CREATE TABLE `membeli` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `membeli`
+-- Dumping data untuk tabel `membeli`
 --
 
 INSERT INTO `membeli` (`id_beli`, `tgl_beli`, `id_barang`, `id_customer`, `id_rekap`) VALUES
@@ -117,7 +160,7 @@ INSERT INTO `membeli` (`id_beli`, `tgl_beli`, `id_barang`, `id_customer`, `id_re
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pegawai`
+-- Struktur dari tabel `pegawai`
 --
 
 CREATE TABLE `pegawai` (
@@ -128,7 +171,7 @@ CREATE TABLE `pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pegawai`
+-- Dumping data untuk tabel `pegawai`
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `nama`, `alamat`, `no_telp`) VALUES
@@ -138,7 +181,7 @@ INSERT INTO `pegawai` (`id_pegawai`, `nama`, `alamat`, `no_telp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rekap_penjualan`
+-- Struktur dari tabel `rekap_penjualan`
 --
 
 CREATE TABLE `rekap_penjualan` (
@@ -148,7 +191,7 @@ CREATE TABLE `rekap_penjualan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rekap_penjualan`
+-- Dumping data untuk tabel `rekap_penjualan`
 --
 
 INSERT INTO `rekap_penjualan` (`id_rekap`, `tgl_rekap`, `id_pegawai`) VALUES
@@ -156,45 +199,144 @@ INSERT INTO `rekap_penjualan` (`id_rekap`, `tgl_rekap`, `id_pegawai`) VALUES
 ('r0002', '0000-00-00 00:00:00', 'p0002'),
 ('r0003', '0000-00-00 00:00:00', 'p0001');
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `status_daftar`
+--
+
+CREATE TABLE `status_daftar` (
+  `id_status` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `status_daftar`
+--
+
+INSERT INTO `status_daftar` (`id_status`, `status`) VALUES
+(1, 'unverified'),
+(2, 'verified'),
+(3, 'finish');
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `barang`
+-- Indeks untuk tabel `barang`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`id_barang`);
 
 --
--- Indexes for table `customer`
+-- Indeks untuk tabel `customer`
 --
 ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id_customer`);
+  ADD PRIMARY KEY (`id_customer`),
+  ADD KEY `no_kartu` (`no_kartu`);
 
 --
--- Indexes for table `kartu_member`
+-- Indeks untuk tabel `daftar`
+--
+ALTER TABLE `daftar`
+  ADD PRIMARY KEY (`id_daftar`),
+  ADD UNIQUE KEY `mail_index` (`email`);
+
+--
+-- Indeks untuk tabel `kartu_member`
 --
 ALTER TABLE `kartu_member`
   ADD PRIMARY KEY (`no_kartu`);
 
 --
--- Indexes for table `membeli`
+-- Indeks untuk tabel `log_status_daftar`
 --
-ALTER TABLE `membeli`
-  ADD PRIMARY KEY (`id_beli`);
+ALTER TABLE `log_status_daftar`
+  ADD PRIMARY KEY (`id_log`),
+  ADD KEY `id_daftar` (`id_daftar`),
+  ADD KEY `id_status` (`id_status`);
 
 --
--- Indexes for table `pegawai`
+-- Indeks untuk tabel `membeli`
+--
+ALTER TABLE `membeli`
+  ADD PRIMARY KEY (`id_beli`),
+  ADD KEY `id_barang` (`id_barang`),
+  ADD KEY `id_customer` (`id_customer`),
+  ADD KEY `id_rekap` (`id_rekap`);
+
+--
+-- Indeks untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`id_pegawai`);
 
 --
--- Indexes for table `rekap_penjualan`
+-- Indeks untuk tabel `rekap_penjualan`
 --
 ALTER TABLE `rekap_penjualan`
-  ADD PRIMARY KEY (`id_rekap`);
+  ADD PRIMARY KEY (`id_rekap`),
+  ADD KEY `id_pegawai` (`id_pegawai`);
+
+--
+-- Indeks untuk tabel `status_daftar`
+--
+ALTER TABLE `status_daftar`
+  ADD PRIMARY KEY (`id_status`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `daftar`
+--
+ALTER TABLE `daftar`
+  MODIFY `id_daftar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `log_status_daftar`
+--
+ALTER TABLE `log_status_daftar`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `status_daftar`
+--
+ALTER TABLE `status_daftar`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `customer`
+--
+ALTER TABLE `customer`
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`no_kartu`) REFERENCES `kartu_member` (`no_kartu`);
+
+--
+-- Ketidakleluasaan untuk tabel `log_status_daftar`
+--
+ALTER TABLE `log_status_daftar`
+  ADD CONSTRAINT `log_status_daftar_ibfk_1` FOREIGN KEY (`id_daftar`) REFERENCES `daftar` (`id_daftar`),
+  ADD CONSTRAINT `log_status_daftar_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `status_daftar` (`id_status`);
+
+--
+-- Ketidakleluasaan untuk tabel `membeli`
+--
+ALTER TABLE `membeli`
+  ADD CONSTRAINT `membeli_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`),
+  ADD CONSTRAINT `membeli_ibfk_2` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`),
+  ADD CONSTRAINT `membeli_ibfk_3` FOREIGN KEY (`id_rekap`) REFERENCES `rekap_penjualan` (`id_rekap`);
+
+--
+-- Ketidakleluasaan untuk tabel `rekap_penjualan`
+--
+ALTER TABLE `rekap_penjualan`
+  ADD CONSTRAINT `rekap_penjualan_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
